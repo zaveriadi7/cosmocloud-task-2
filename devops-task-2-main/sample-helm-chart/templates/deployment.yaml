@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+spec:
+  replicas: {{ default 1 .Values.replicaCount | int }}
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+      - name: backend
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        env:
+          - name: REDIS_URI
+            value: {{ .Values.env.REDIS_URI }}
