@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  replicas: {{ default 1 .Values.replicaCount | int }}
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis:alppine
+        image: redis
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 6377
