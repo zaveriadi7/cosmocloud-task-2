@@ -1,0 +1,20 @@
+backend:
+  image:
+    repository: backend-app
+    tag: latest
+
+replicaCount: 1
+
+env:
+  REDIS_URI: "redis://redis-svc:6379"
+
+redis:
+  image:
+    repository: redis
+    tag: latest
+  persistence:
+    enabled: true
+    storageClass: "standard" 
+    size: 1Gi               
+    accessMode: ReadWriteOnce 
+  replicaCount: 1
