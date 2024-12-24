@@ -7,8 +7,8 @@ from redis import Redis
 
 load_dotenv()
 
+client = Redis.from_url(os.environ["REDIS_URI"], decode_responses=True)
 
-REDIS_URI = os.getenv("REDIS_URI")
 
 app = FastAPI()
 
@@ -24,6 +24,6 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     
-        hits = client.incr("hits")
-        return {"hits": hits}
+    hits = client.incr("hits")
+    return {"hits": hits}
     
